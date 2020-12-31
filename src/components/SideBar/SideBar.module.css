@@ -1,0 +1,31 @@
+.SideBar {
+  top: 0;
+  left: 0;
+  background-color: white;
+  position: fixed;
+  height: 100%;
+  width: 280px;
+  z-index: 200;
+  padding: 32px 16px;
+  transition: transform 0.3s ease-out;
+}
+
+.SidebarLogo {
+  padding: 10px;
+  height: 15%;
+  text-align: center;
+}
+
+@media (min-width: 500px) {
+  .SideBar {
+    display: none;
+  }
+}
+
+.Close {
+  transform: translateX(-100%);
+}
+
+.Open {
+  transform: translateX(0);
+}
