@@ -7,7 +7,8 @@ const Menu = () => (
     <ul className={css.Menu}>
       <MenuItem link="/burger-page">БҮРГЕР ЗАХИАЛАХ</MenuItem>
       <MenuItem link="/burger-orders">ЗАХИАЛГУУД</MenuItem>
-      <MenuItem link="/login">Нэвтрэх</MenuItem>
+      <MenuItem link="/signUp">БҮРТГҮҮЛЭХ</MenuItem>
+      <MenuItem link="/login">НЭВТРЭХ</MenuItem>
     </ul>
   </div>
 );
