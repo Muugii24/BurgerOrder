@@ -1,7 +1,5 @@
 import React from "react";
 import { connect } from "react-redux";
-
-import css from "./OrderPage.module.css";
 import Spinner from "../../components/General/Spinner";
 import Order from "../../components/Order";
 import * as actions from "../../Redux/Actioin/orderActions";
