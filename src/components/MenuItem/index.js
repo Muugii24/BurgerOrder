@@ -5,7 +5,11 @@ import { NavLink } from "react-router-dom";
 const MenuItem = (props) => (
   <div className={css.MenuItem}>
     <li>
-      <NavLink activeClassName={css.active} to={props.link}>
+      <NavLink
+        onClick={props.close}
+        activeClassName={css.active}
+        to={props.link}
+      >
         {props.children}
       </NavLink>
     </li>

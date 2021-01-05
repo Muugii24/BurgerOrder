@@ -16,7 +16,12 @@ export const signupUser = (email, password) => {
         data
       )
       .then((result) => {
-        dispatch(signupUserSuccess(result.data));
+        const token = result.data.idToken;
+        const userId = result.data.localId;
+        localStorage.setItem("token", token);
+        localStorage.setItem("userId", userId);
+
+        dispatch(signupUserSuccess(token, userId));
       })
       .catch((error) => dispatch(signupUserError(error)));
   };
@@ -28,10 +33,11 @@ export const signupUserStart = () => {
   };
 };
 
-export const signupUserSuccess = (resultData) => {
+export const signupUserSuccess = (token, userId) => {
   return {
     type: "SIGNUP_USER_SUCCESS",
-    resultData,
+    token,
+    userId,
   };
 };
 

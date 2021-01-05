@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
-
-import Button from "../../components/General/Button";
-import css from "./SignUp.module.css";
-import * as actions from "../../Redux/Actioin/signupActions";
 import { connect } from "react-redux";
+
+import css from "./SignUp.module.css";
+import Button from "../../components/General/Button";
 import Spinner from "../../components/General/Spinner";
+import * as actions from "../../Redux/Actioin/signupActions";
 
 class SignUpPage extends Component {
   state = {
@@ -39,7 +39,7 @@ class SignUpPage extends Component {
   render() {
     return (
       <div className={css.SignUp}>
-        {this.props.userId && <Redirect to="/burger-orders" />}
+        {this.props.userId && <Redirect to="/login" />}
         {this.props.loading ? (
           <Spinner />
         ) : (
@@ -79,10 +79,9 @@ class SignUpPage extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    loading: state.signupReducer.loading,
-    error: state.signupReducer.error,
-    done: state.signupReducer.done,
-    userId: state.signupReducer.userId,
+    loading: state.signupLoginReducer.loading,
+    error: state.signupLoginReducer.error,
+    userId: state.signupLoginReducer.userId,
   };
 };
 

@@ -15,7 +15,7 @@ const SideBar = (props) => {
       <Shadow close={props.toggleSideBar} show={props.showSideBar} />
       <div className={classes.join(" ")}>
         <div className={css.SidebarLogo}>{<Logo />}</div>
-        <Menu />
+        <Menu close={props.toggleSideBar} />
       </div>
     </div>
   );

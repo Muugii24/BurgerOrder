@@ -14,9 +14,8 @@ class ContactData extends React.Component {
   };
 
   componentDidUpdate() {
-    if (this.props.newOrderStatus.finished === true) {
+    this.props.newOrderStatus.finished &&
       this.props.history.replace("/burger-orders");
-    }
   }
 
   changeName = (e) => {
@@ -33,6 +32,7 @@ class ContactData extends React.Component {
 
   sendData = () => {
     const newOrder = {
+      userId: this.props.userId,
       orts: this.props.ingredients,
       dun: this.props.price,
       hayag: {
@@ -82,6 +82,7 @@ const mapStateToProps = (state) => {
     ingredients: state.burgerReducer.ingredients,
     price: state.burgerReducer.totalPrice,
     newOrderStatus: state.orderReducer.newOrder,
+    userId: state.signupLoginReducer.userId,
   };
 };
 
