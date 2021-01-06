@@ -23,28 +23,33 @@ const initialState = {
 };
 
 const reducer = (state = initialState, action) => {
-  if (action.type === "ADD_INGREDIENT") {
-    return {
-      ...state,
-      ingredients: {
-        ...state.ingredients,
-        [action.ortsNer]: state.ingredients[action.ortsNer] + 1,
-      },
-      totalPrice: state.totalPrice + INGREDIENT_PRICES[action.ortsNer],
-      purchasing: (state.purchasing = true),
-    };
-  } else if (action.type === "REMOVE_INGREDIENT") {
-    return {
-      ...state,
-      ingredients: {
-        ...state.ingredients,
-        [action.ortsNer]: state.ingredients[action.ortsNer] - 1,
-      },
-      totalPrice: state.totalPrice - INGREDIENT_PRICES[action.ortsNer],
-      purchasing: state.totalPrice > 0,
-    };
+  switch (action.type) {
+    case "ADD_INGREDIENT":
+      return {
+        ...state,
+        ingredients: {
+          ...state.ingredients,
+          [action.ortsNer]: state.ingredients[action.ortsNer] + 1,
+        },
+        totalPrice: state.totalPrice + INGREDIENT_PRICES[action.ortsNer],
+        purchasing: (state.purchasing = true),
+      };
+    case "REMOVE_INGREDIENT":
+      return {
+        ...state,
+        ingredients: {
+          ...state.ingredients,
+          [action.ortsNer]: state.ingredients[action.ortsNer] - 1,
+        },
+        totalPrice: state.totalPrice - INGREDIENT_PRICES[action.ortsNer],
+        purchasing: state.totalPrice > 0,
+      };
+    case "CLEAR_ORDER":
+      return initialState;
+
+    default:
+      return state;
   }
-  return state;
 };
 
 export default reducer;

@@ -1,12 +1,12 @@
 import axios from "../../axios-orders";
 
-export const loginUser = (email, password) => {
+export const loginUser = (form) => {
   return function (dispatch) {
     dispatch(loginUserStart());
 
     const data = {
-      email,
-      password,
+      email: form.email,
+      password: form.password,
       returnSecureToken: true,
     };
 
@@ -28,7 +28,6 @@ export const loginUser = (email, password) => {
         localStorage.setItem("refreshToken", refreshToken);
 
         dispatch(loginUserSuccess(token, userId));
-        dispatch(autologout(expireDate * 1000));
       })
       .catch((error) => dispatch(loginUserError(error)));
   };

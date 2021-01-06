@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import * as actions from "../../Redux/Actioin/orderActions";
@@ -6,76 +6,74 @@ import Button from "../General/Button";
 import Spinner from "../General/Spinner";
 import css from "./ContactData.module.css";
 
-class ContactData extends React.Component {
-  state = {
-    name: null,
-    city: null,
-    street: null,
+const ContactData = (props) => {
+  const [name, setName] = useState("");
+  const [city, setCity] = useState("");
+  const [street, setStreet] = useState("");
+
+  useEffect(() => {
+    props.newOrderStatus.finished && props.history.replace("/burger-orders");
+    return () => {
+      props.clearOrder();
+    };
+  }, [props.newOrderStatus.finished]);
+
+  const changeName = (e) => {
+    setName(e.target.value);
   };
 
-  componentDidUpdate() {
-    this.props.newOrderStatus.finished &&
-      this.props.history.replace("/burger-orders");
-  }
-
-  changeName = (e) => {
-    this.setState({ name: e.target.value });
+  const changeCity = (e) => {
+    setCity(e.target.value);
   };
 
-  changeCity = (e) => {
-    this.setState({ city: e.target.value });
+  const changeStreet = (e) => {
+    setStreet(e.target.value);
   };
 
-  changeStreet = (e) => {
-    this.setState({ street: e.target.value });
-  };
-
-  sendData = () => {
+  const sendData = () => {
     const newOrder = {
-      userId: this.props.userId,
-      orts: this.props.ingredients,
-      dun: this.props.price,
+      userId: props.userId,
+      orts: props.ingredients,
+      dun: props.price,
       hayag: {
-        Name: this.state.name,
-        City: this.state.city,
-        Street: this.state.street,
+        Name: name,
+        City: city,
+        Street: street,
       },
     };
-    this.props.saveOrder(newOrder);
+    props.saveOrder(newOrder);
   };
 
-  render() {
-    return (
-      <div className={css.ContactData}>
-        {this.props.newOrderStatus.saving ? (
-          <Spinner />
-        ) : (
-          <div>
-            <input
-              onChange={this.changeName}
-              type="text"
-              name="name"
-              placeholder="Таны нэр"
-            />
-            <input
-              onChange={this.changeCity}
-              type="text"
-              name="city"
-              placeholder="Таны хот"
-            />
-            <input
-              onChange={this.changeStreet}
-              type="text"
-              name="street"
-              placeholder="Таны гэрийн хаяг"
-            />
-            <Button clicked={this.sendData} btnType="Success" text="ИЛГЭЭХ" />
-          </div>
-        )}
-      </div>
-    );
-  }
-}
+  return (
+    <div className={css.ContactData}>
+      {props.newOrderStatus.saving ? (
+        <Spinner />
+      ) : (
+        <div>
+          <input
+            onChange={changeName}
+            type="text"
+            name="name"
+            placeholder="Таны нэр"
+          />
+          <input
+            onChange={changeCity}
+            type="text"
+            name="city"
+            placeholder="Таны хот"
+          />
+          <input
+            onChange={changeStreet}
+            type="text"
+            name="street"
+            placeholder="Таны гэрийн хаяг"
+          />
+          <Button clicked={sendData} btnType="Success" text="ИЛГЭЭХ" />
+        </div>
+      )}
+    </div>
+  );
+};
 
 const mapStateToProps = (state) => {
   return {
@@ -89,6 +87,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     saveOrder: (newOrder) => dispatch(actions.saveOrder(newOrder)),
+    clearOrder: () => dispatch(actions.clearOrder()),
   };
 };
 
