@@ -22,6 +22,10 @@ const reducer = (state = initialState, action) => {
         ...state,
         loading: false,
         orders: action.orders,
+        newOrder: {
+          ...state.newOrder,
+          finished: false,
+        },
       };
 
     case "LOAD_ORDERS_ERROR":
