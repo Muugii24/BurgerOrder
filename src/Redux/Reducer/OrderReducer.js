@@ -11,6 +11,16 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case "CLEAR_ORDER":
+      return {
+        ...state,
+        newOrder: {
+          saving: false,
+          finished: false,
+          error: null,
+        },
+      };
+
     case "LOAD_ORDERS_START":
       return {
         ...state,
@@ -24,7 +34,6 @@ const reducer = (state = initialState, action) => {
         orders: action.orders,
         newOrder: {
           ...state.newOrder,
-          finished: false,
         },
       };
 

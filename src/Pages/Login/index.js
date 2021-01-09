@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 
 import Button from "../../components/General/Button";
@@ -7,52 +7,52 @@ import * as actions from "../../Redux/Actioin/loginActions";
 import Spinner from "../../components/General/Spinner";
 import { Redirect } from "react-router-dom";
 
-class LoginPage extends Component {
-  state = {
+const LoginPage = (props) => {
+  const [form, setForm] = useState({
     email: "",
     password: "",
+  });
+
+  const login = () => {
+    props.loginUser(form);
   };
 
-  login = () => {
-    this.props.loginUser(this.state.email, this.state.password);
+  const changeEmail = (e) => {
+    const newEmail = e.target.value;
+    setForm((formBefore) => ({
+      email: newEmail,
+      password: formBefore.password,
+    }));
   };
 
-  changeEmail = (e) => {
-    this.setState({ email: e.target.value });
+  const changePassword = (e) => {
+    const newPassword = e.target.value;
+    setForm((formBefore) => ({
+      email: formBefore.email,
+      password: newPassword,
+    }));
   };
 
-  changePassword = (e) => {
-    this.setState({ password: e.target.value });
-  };
-
-  render() {
-    return (
-      <div className={css.Login}>
-        {this.props.userId && <Redirect to="/burger-page" />}
-        {this.props.loading ? (
-          <Spinner />
-        ) : (
-          <div>
-            <input
-              onChange={this.changeEmail}
-              type="text"
-              placeholder="Имэйл хаяг"
-            />
-            <input
-              onChange={this.changePassword}
-              type="password"
-              placeholder="Нууц үг"
-            />
-            {this.props.error && (
-              <div style={{ color: "red" }}>{this.props.error}</div>
-            )}
-            <Button text="Login" btnType="Success" clicked={this.login} />
-          </div>
-        )}
-      </div>
-    );
-  }
-}
+  return (
+    <div className={css.Login}>
+      {props.userId && <Redirect to="/burger-page" />}
+      {props.loading ? (
+        <Spinner />
+      ) : (
+        <div>
+          <input onChange={changeEmail} type="text" placeholder="Имэйл хаяг" />
+          <input
+            onChange={changePassword}
+            type="password"
+            placeholder="Нууц үг"
+          />
+          {props.error && <div style={{ color: "red" }}>{props.error}</div>}
+          <Button text="Login" btnType="Success" clicked={login} />
+        </div>
+      )}
+    </div>
+  );
+};
 
 const mapStateToProps = (state) => {
   return {
@@ -64,8 +64,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    loginUser: (email, password) =>
-      dispatch(actions.loginUser(email, password)),
+    loginUser: (form) => dispatch(actions.loginUser(form)),
   };
 };
 

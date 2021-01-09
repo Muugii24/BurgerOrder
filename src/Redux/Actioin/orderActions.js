@@ -18,6 +18,12 @@ export const loadOrders = (userId) => {
   };
 };
 
+export const clearOrder = () => {
+  return {
+    type: "CLEAR_ORDER",
+  };
+};
+
 export const loadOrdersStart = () => {
   return {
     type: "LOAD_ORDERS_START",
@@ -43,7 +49,7 @@ export const saveOrder = (newOrder) => {
     dispatch(saveOrderStart());
 
     const token = getState().signupLoginReducer.token;
-    const userId = getState().signupLoginReducer.userId;
+    //const userId = getState().signupLoginReducer.userId;
 
     axios
       .post(`/orders.json?&auth=${token}`, newOrder)
