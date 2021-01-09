@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 
 import Button from "../../components/General/Button";
 import css from "./Login.module.css";
 import * as actions from "../../Redux/Actioin/loginActions";
 import Spinner from "../../components/General/Spinner";
-import { Redirect } from "react-router-dom";
 
 const LoginPage = (props) => {
   const [form, setForm] = useState({
@@ -34,7 +34,7 @@ const LoginPage = (props) => {
   };
 
   return (
-    <div className={css.Login}>
+    <div className={css.Logins}>
       {props.userId && <Redirect to="/burger-page" />}
       {props.loading ? (
         <Spinner />

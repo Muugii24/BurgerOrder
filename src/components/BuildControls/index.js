@@ -28,6 +28,7 @@ const BuildControls = (props) => {
           orts={props.ingredientNames[el]}
         />
       ))}
+      <div>{console.log(props.purchasing)}</div>
 
       <button
         onClick={props.showConfirmModal}

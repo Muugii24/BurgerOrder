@@ -1,4 +1,4 @@
-.Login {
+.Logins {
   width: 300px;
   margin: auto;
   border: 1px solid gray;
@@ -7,7 +7,7 @@
   padding: 10px;
   text-align: center;
 }
-.Login input {
+.Logins input {
   display: block;
   font-size: 18px;
   padding: 5px;

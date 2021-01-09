@@ -32,17 +32,18 @@ const reducer = (state = initialState, action) => {
           [action.ortsNer]: state.ingredients[action.ortsNer] + 1,
         },
         totalPrice: state.totalPrice + INGREDIENT_PRICES[action.ortsNer],
-        purchasing: (state.purchasing = true),
+        purchasing: true,
       };
     case "REMOVE_INGREDIENT":
+      const newPrice = state.totalPrice - INGREDIENT_PRICES[action.ortsNer];
       return {
         ...state,
         ingredients: {
           ...state.ingredients,
           [action.ortsNer]: state.ingredients[action.ortsNer] - 1,
         },
-        totalPrice: state.totalPrice - INGREDIENT_PRICES[action.ortsNer],
-        purchasing: state.totalPrice > 0,
+        totalPrice: newPrice,
+        purchasing: newPrice > 0,
       };
     case "CLEAR_ORDER":
       return initialState;

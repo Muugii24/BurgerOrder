@@ -36,8 +36,7 @@ const ShippingPage = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    ingredients: state.ingredients,
-    price: state.totalPrice,
+    price: state.burgerReducer.totalPrice,
   };
 };
 
